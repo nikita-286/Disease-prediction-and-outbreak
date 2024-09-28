@@ -11,6 +11,14 @@
     <div id="result">
         <!-- Prediction results will be injected here -->
     </div>
+
+    <h4>Outbreak Information:</h4>
+    <ul>
+        {% for country, info in outbreakInfo.items() %}
+            <li>{{ country }}: {{ info }}</li>
+        {% endfor %}
+    </ul>
+ 
     <button onclick="window.location.href='/input'">Go Back</button>
 
     <script>
