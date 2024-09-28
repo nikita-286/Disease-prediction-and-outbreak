@@ -11,7 +11,7 @@
     <h1>Disease Prediction Input</h1>
 
     <!-- Form for inputting factors -->
-    <form id="data-form">
+    <form id="data-form" onsubmit="return false;"> <!-- Prevent default form submission -->
         <!-- Temperature Slider -->
         <label for="temperature">Temperature:</label>
         <input type="range" id="temperature" name="temperature" min="0" max="50" value="25" step="1" oninput="this.nextElementSibling.value = this.value">
@@ -26,22 +26,13 @@
         <label for="populationDensity">Population Density:</label>
         <input type="number" id="populationDensity" name="populationDensity" required><br>
 
-        <!-- Travel History Dropdown -->
-        <label for="travelHistory">Recent Travel History:</label>
-        <select id="travelHistory" name="travelHistory" onchange="toggleTravelHistoryInput()">
-            <option value="no">No</option>
-            <option value="yes">Yes</option>
-        </select><br>
-
-        <!-- Conditional Travel History Text Area for NLP -->
-        <div id="travel-history-section" style="display: none;">
-            <label for="travelHistoryText">Enter Travel History (if applicable):</label>
-            <textarea id="travelHistoryText" name="travelHistoryText" rows="4" cols="50" placeholder="e.g., I traveled to Brazil and China recently."></textarea><br>
-            <button type="button" onclick="processTravelHistory()">Analyze Travel History</button>
-        </div><br>
+        <!-- Travel History Text Area for NLP -->
+        <label for="travelHistoryText">Enter Travel History:</label>
+        <textarea id="travelHistoryText" name="travelHistoryText" rows="4" cols="50" placeholder="e.g., I traveled to Brazil and China recently."></textarea><br>
+        <button type="button" onclick="processTravelHistory()">Analyze Travel History</button><br>
 
         <!-- Submit Button -->
-        <button type="submit">Submit</button>
+        <button type="submit" onclick="submitData()">Submit</button> <!-- Call to submitData function -->
     </form>
 
     <!-- Result Display -->
@@ -51,17 +42,6 @@
     <div id="travel-result"></div>
 
     <script>
-        // Show/hide travel history input based on dropdown selection
-        function toggleTravelHistoryInput() {
-            const travelHistory = document.getElementById('travelHistory').value;
-            const travelHistorySection = document.getElementById('travel-history-section');
-            if (travelHistory === 'yes') {
-                travelHistorySection.style.display = 'block';
-            } else {
-                travelHistorySection.style.display = 'none';
-            }
-        }
-
         // Process travel history using NLP (communicates with the server)
         function processTravelHistory() {
             const travelHistoryText = document.getElementById('travelHistoryText').value;
@@ -80,13 +60,20 @@
                 resultHtml += "<p>Places Visited: " + data.places_visited.join(', ') + "</p>";
                 resultHtml += "<p><strong>Outbreak Information:</strong></p>";
                 for (const [place, info] of Object.entries(data.outbreak_info)) {
-                    resultHtml += `<p>${place}: ${info}</p>`;
+                    resultHtml += `<p>${place}: Disease - ${info.disease}, Cases - ${info.cases}, Deaths - ${info.deaths}, New Cases - ${info.new_cases}</p>`;
                 }
                 travelResultDiv.innerHTML = resultHtml;
             })
             .catch((error) => {
                 console.error('Error:', error);
             });
+        }
+
+        // Function to handle form submission
+        function submitData() {
+            // Collect form data and perform the necessary submission logic
+            // You can add your prediction logic here if needed.
+            console.log("Form submitted."); // Placeholder for submission logic
         }
     </script>
 </body>
