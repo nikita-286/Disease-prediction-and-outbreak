@@ -83,26 +83,29 @@ def get_outbreak_info(places_visited):
     return outbreak_info
 
 
-# Predict function combining environmental factors and travel history
+
 @app.route('/predict', methods=['POST'])
 def predict():
     data = request.get_json()
+    # Extract values from incoming data
     temperature = data.get('temperature')
     humidity = data.get('humidity')
-    population_density = data.get('population_density')
+    populationDensity = data.get('populationDensity')
+    travel_history = data.get('travel_history')
 
-    # Make sure to get the outbreak_info from the correct source
-    outbreak_info_response = requests.post('http://localhost:5000/process_travel_history', json=data)
-    outbreak_info = outbreak_info_response.json().get('outbreak_info')  # This should be a dict
+    # Simulate some prediction logic here (replace with your actual model)
+    # For example:
+    confidence_score = 0.85  # Dummy value
+    outbreak_likelihood = "High"  # Dummy value
 
-    # Check if outbreak_info is a dictionary
-    if not isinstance(outbreak_info, dict):
-        return jsonify({'error': 'Outbreak info is not available.'}), 400
-
-    prediction = combine_factors(temperature, humidity, population_density, outbreak_info)
-
-    return jsonify({'prediction': prediction})
-
+    # Return the result as a JSON response
+    return jsonify({
+        "temperature": temperature,
+        "humidity": humidity,
+        "populationDensity": populationDensity,
+        "confidence_score": confidence_score,
+        "outbreak_likelihood": outbreak_likelihood
+    })
 
 
 # Combine environmental factors and travel history for final prediction
