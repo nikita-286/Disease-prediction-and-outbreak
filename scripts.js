@@ -6,11 +6,12 @@ document.getElementById('data-form').addEventListener('submit', function (e) {
         temperature: document.getElementById('temperature').value,
         humidity: document.getElementById('humidity').value,
         populationDensity: document.getElementById('populationDensity').value,
-        travelHistory: document.getElementById('travelHistoryText').value, // Fixed travelHistory input
+        travel_history: document.getElementById('travelHistoryText').value, // Make it consistent
     };
+    
 
     // Ensure valid data
-    if (!data.temperature || !data.humidity || !data.populationDensity) {
+    if (!data.temperature || !data.humidity || !data.populationDensity || !data.travelHistory) {
         alert('Please fill in all the required fields.');
         return;
     }
@@ -39,23 +40,3 @@ document.getElementById('data-form').addEventListener('submit', function (e) {
         alert('Error submitting prediction data. Please try again.');
     });
 });
-
-// On the results page, display the prediction results
-if (window.location.pathname === '/results') {
-    const result = JSON.parse(localStorage.getItem('predictionResult'));
-
-    if (result) {
-        document.getElementById('result').innerHTML = `
-            <h2>Prediction: ${result.prediction}</h2>
-            <h3>Confidence Score: ${result.confidenceScore}</h3>
-            <h4>Outbreak Information:</h4>
-            <ul>
-                ${result.outbreakInfo ? Object.entries(result.outbreakInfo).map(([region, info]) => `<li>${region}: ${info}</li>`).join('') : '<li>No outbreak information available</li>'}
-            </ul>
-            <h4>Additional Information:</h4>
-            <p>${result.additionalInfo || 'No additional information available'}</p>
-        `;
-    } else {
-        document.getElementById('result').innerHTML = '<p>No results available.</p>';
-    }
-}
