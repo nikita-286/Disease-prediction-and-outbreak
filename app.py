@@ -2,7 +2,7 @@ from flask import Flask, render_template, request, jsonify, redirect
 import spacy
 import mysql.connector
 import requests
-
+import random
 
 app = Flask(__name__, static_folder='public/static', template_folder='public/templates')
 
@@ -87,25 +87,50 @@ def get_outbreak_info(places_visited):
 @app.route('/predict', methods=['POST'])
 def predict():
     data = request.get_json()
-    # Extract values from incoming data
-    temperature = data.get('temperature')
-    humidity = data.get('humidity')
-    populationDensity = data.get('populationDensity')
-    travel_history = data.get('travel_history')
 
-    # Simulate some prediction logic here (replace with your actual model)
-    # For example:
-    confidence_score = 0.85  # Dummy value
-    outbreak_likelihood = "High"  # Dummy value
+    # Extract input data and convert to appropriate types
+    try:
+        temperature = float(data['temperature'])
+        humidity = float(data['humidity'])
+        population_density = int(data['populationDensity'])
+    except ValueError:
+        return jsonify({"error": "Invalid input data types. Ensure that temperature and humidity are numbers."}), 400
 
-    # Return the result as a JSON response
-    return jsonify({
-        "temperature": temperature,
-        "humidity": humidity,
-        "populationDensity": populationDensity,
+    # Simulated prediction logic
+    confidence_score = 0.85  # Example confidence score
+    outbreak_likelihood = "Medium"  # Example likelihood
+    
+    # Example logic to determine predicted diseases based on inputs only
+    predicted_diseases = []
+    
+    # Simulated logic based on the input parameters
+    if temperature > 30 and humidity > 70:  # Hot and humid conditions
+        predicted_diseases.append("Dengue Fever")
+        predicted_diseases.append("Zika Virus")
+        predicted_diseases.append("Chikungunya")
+    
+    if population_density > 2000:  # High population density
+        predicted_diseases.append("Tuberculosis")
+        predicted_diseases.append("COVID-19")
+        predicted_diseases.append("Influenza")
+    
+    if temperature < 20 and humidity < 30:  # Cold and dry conditions
+        predicted_diseases.append("Seasonal Flu")
+        predicted_diseases.append("Hypothermia")
+        predicted_diseases.append("Respiratory Infections")
+
+    # Prepare the response
+    response = {
         "confidence_score": confidence_score,
-        "outbreak_likelihood": outbreak_likelihood
-    })
+        "outbreak_likelihood": outbreak_likelihood,
+        "predicted_diseases": predicted_diseases  # Include predicted diseases here
+    }
+
+    return jsonify(response)
+
+if __name__ == '__main__':
+    app.run(debug=True)
+
 
 
 # Combine environmental factors and travel history for final prediction
