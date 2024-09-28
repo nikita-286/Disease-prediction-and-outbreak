@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Disease Prediction Input</title>
+    <title>Disease Prediction</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
     <script src="{{ url_for('static', filename='js/scripts.js') }}" defer></script>
     <style>
@@ -43,8 +43,10 @@
         }
     </style>
 </head>
+
+
 <body>
-    <h1>Disease Prediction Input</h1>
+    <h1>Disease Prediction</h1>
 
     <!-- Form for inputting factors -->
     <form id="data-form" onsubmit="return false;">
@@ -158,6 +160,7 @@
                 <p><strong>Population Density:</strong> ${populationDensity}</p>
                 <p><strong>Confidence Score:</strong> ${data.confidence_score}</p>
                 <p><strong>Outbreak Likelihood:</strong> ${data.outbreak_likelihood}</p>
+                <p><strong>Predicted Disease:</strong> ${data.predicted_diseases}</p>
             `;
             document.getElementById('resultModal').style.display = "block"; // Show modal
         }
