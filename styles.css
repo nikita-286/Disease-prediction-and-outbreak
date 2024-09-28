@@ -1,20 +1,22 @@
 /* General Page Styling */
+
+
 body {
-    font-family: Arial, sans-serif;
-    background-color: #f4f4f9;
-    color: #333;
+    font-family: 'Poppins', sans-serif;
+    background-color: #fcd9c9;
+    color: #000000;
     margin: 0;
     padding: 20px;
 }
 
 h1 {
-    color: #2c3e50;
+    color: #000000;
     text-align: center;
 }
 
 /* Form Styling */
 form {
-    background-color: #fff;
+    background-color: #fac193;
     padding: 20px;
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
@@ -26,7 +28,7 @@ label {
     font-weight: bold;
     margin-top: 10px;
     display: block;
-    color: #34495e;
+    color: #000000;
 }
 
 input[type="range"] {
@@ -39,14 +41,14 @@ input[type="number"], select, textarea {
     padding: 8px;
     margin-top: 5px;
     margin-bottom: 15px;
-    border: 1px solid #ccc;
+    border: 1px solid #ff5e00;
     border-radius: 4px;
     font-size: 16px;
 }
 
 /* Button Styling */
 button {
-    background-color: #2980b9;
+    background-color: #ff5930;
     color: white;
     border: none;
     padding: 10px 20px;
@@ -56,7 +58,7 @@ button {
 }
 
 button:hover {
-    background-color: #3498db;
+    background-color: #e76b50;
 }
 
 /* Output Result Styling */
@@ -72,11 +74,11 @@ output {
 }
 
 #travel-result {
-    background-color: #ecf0f1;
+    background-color: #fac193;
     padding: 15px;
     border-radius: 8px;
     margin-top: 20px;
-    border: 1px solid #bdc3c7;
+    border: 1px solid #ff5e00;
 }
 
 /* Responsive Design */
