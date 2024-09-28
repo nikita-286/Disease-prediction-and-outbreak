@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Disease Prediction Input</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+    <script src="{{ url_for('static', filename='js/scripts.js') }}" defer></script>
+</head>
+<body>
+    <h1>Disease Prediction Input</h1>
+
+    <!-- Form for inputting factors -->
+    <form id="data-form">
+        <!-- Temperature Slider -->
+        <label for="temperature">Temperature:</label>
+        <input type="range" id="temperature" name="temperature" min="0" max="50" value="25" step="1" oninput="this.nextElementSibling.value = this.value">
+        <output>25</output><br>
+
+        <!-- Humidity Slider -->
+        <label for="humidity">Humidity:</label>
+        <input type="range" id="humidity" name="humidity" min="0" max="100" value="50" step="1" oninput="this.nextElementSibling.value = this.value">
+        <output>50</output><br>
+
+        <!-- Population Density Input -->
+        <label for="populationDensity">Population Density:</label>
+        <input type="number" id="populationDensity" name="populationDensity" required><br>
+
+        <!-- Travel History Dropdown -->
+        <label for="travelHistory">Recent Travel History:</label>
+        <select id="travelHistory" name="travelHistory" onchange="toggleTravelHistoryInput()">
+            <option value="no">No</option>
+            <option value="yes">Yes</option>
+        </select><br>
+
+        <!-- Conditional Travel History Text Area for NLP -->
+        <div id="travel-history-section" style="display: none;">
+            <label for="travelHistoryText">Enter Travel History (if applicable):</label>
+            <textarea id="travelHistoryText" name="travelHistoryText" rows="4" cols="50" placeholder="e.g., I traveled to Brazil and China recently."></textarea><br>
+            <button type="button" onclick="processTravelHistory()">Analyze Travel History</button>
+        </div><br>
+
+        <!-- Submit Button -->
+        <button type="submit">Submit</button>
+    </form>
+
+    <!-- Result Display -->
+    <div id="result"></div>
+
+    <!-- Smart Comments for Travel History -->
+    <div id="travel-result"></div>
+
+    <script>
+        // Show/hide travel history input based on dropdown selection
+        function toggleTravelHistoryInput() {
+            const travelHistory = document.getElementById('travelHistory').value;
+            const travelHistorySection = document.getElementById('travel-history-section');
+            if (travelHistory === 'yes') {
+                travelHistorySection.style.display = 'block';
+            } else {
+                travelHistorySection.style.display = 'none';
+            }
+        }
+
+        // Process travel history using NLP (communicates with the server)
+        function processTravelHistory() {
+            const travelHistoryText = document.getElementById('travelHistoryText').value;
+
+            fetch('/process_travel_history', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ travel_history: travelHistoryText }),
+            })
+            .then(response => response.json())
+            .then(data => {
+                const travelResultDiv = document.getElementById('travel-result');
+                let resultHtml = "<h3>Analysis Results:</h3>";
+                resultHtml += "<p>Places Visited: " + data.places_visited.join(', ') + "</p>";
+                resultHtml += "<p><strong>Outbreak Information:</strong></p>";
+                for (const [place, info] of Object.entries(data.outbreak_info)) {
+                    resultHtml += `<p>${place}: ${info}</p>`;
+                }
+                travelResultDiv.innerHTML = resultHtml;
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+            });
+        }
+    </script>
+</body>
+</html>
