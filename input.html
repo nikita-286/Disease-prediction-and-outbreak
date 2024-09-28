@@ -6,12 +6,48 @@
     <title>Disease Prediction Input</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
     <script src="{{ url_for('static', filename='js/scripts.js') }}" defer></script>
+    <style>
+        /* Basic modal styling */
+        .modal {
+            display: none; /* Hidden by default */
+            position: fixed; /* Stay in place */
+            z-index: 1; /* Sit on top */
+            left: 0;
+            top: 0;
+            width: 100%; /* Full width */
+            height: 100%; /* Full height */
+            overflow: auto; /* Enable scroll if needed */
+            background-color: rgba(0, 0, 0, 0.4); /* Black w/ opacity */
+        }
+
+        .modal-content {
+            background-color: #fefefe;
+            margin: 15% auto; /* 15% from the top and centered */
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%; /* Could be more or less, depending on screen size */
+        }
+
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
+    </style>
 </head>
 <body>
     <h1>Disease Prediction Input</h1>
 
     <!-- Form for inputting factors -->
-    <form id="data-form" onsubmit="return false;"> <!-- Prevent default form submission -->
+    <form id="data-form" onsubmit="return false;">
         <!-- Temperature Slider -->
         <label for="temperature">Temperature:</label>
         <input type="range" id="temperature" name="temperature" min="0" max="50" value="25" step="1" oninput="this.nextElementSibling.value = this.value">
@@ -32,11 +68,17 @@
         <button type="button" onclick="processTravelHistory()">Analyze Travel History</button><br>
 
         <!-- Submit Button -->
-        <button type="submit" onclick="submitData()">Submit</button> <!-- Call to submitData function -->
+        <button type="submit" onclick="submitData()">Submit</button>
     </form>
 
-    <!-- Result Display -->
-    <div id="result"></div>
+    <!-- Result Display (modal) -->
+    <div id="resultModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal()">&times;</span>
+            <h3>Prediction Results:</h3>
+            <div id="modalResult"></div>
+        </div>
+    </div>
 
     <!-- Smart Comments for Travel History -->
     <div id="travel-result"></div>
@@ -71,10 +113,67 @@
 
         // Function to handle form submission
         function submitData() {
-            // Collect form data and perform the necessary submission logic
-            // You can add your prediction logic here if needed.
-            console.log("Form submitted."); // Placeholder for submission logic
+            const temperature = document.getElementById('temperature').value;
+            const humidity = document.getElementById('humidity').value;
+            const populationDensity = document.getElementById('populationDensity').value;
+            const travelHistory = document.getElementById('travelHistoryText').value;
+
+            const data = {
+                temperature: temperature,
+                humidity: humidity,
+                populationDensity: populationDensity,
+                travel_history: travelHistory,
+            };
+
+            // Fetch prediction data
+            fetch('/predict', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data)
+            })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok ' + response.statusText);
+                }
+                return response.json();
+            })
+            .then(result => {
+                // Display results in modal
+                displayResult(temperature, humidity, populationDensity, result);
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('Error submitting prediction data. Please try again.');
+            });
         }
+
+        // Function to display results in modal
+        function displayResult(temperature, humidity, populationDensity, data) {
+            const modalResultDiv = document.getElementById('modalResult');
+            modalResultDiv.innerHTML = `
+                <p><strong>Temperature:</strong> ${temperature}°C</p>
+                <p><strong>Humidity:</strong> ${humidity}%</p>
+                <p><strong>Population Density:</strong> ${populationDensity}</p>
+                <p><strong>Confidence Score:</strong> ${data.confidence_score}</p>
+                <p><strong>Outbreak Likelihood:</strong> ${data.outbreak_likelihood}</p>
+            `;
+            document.getElementById('resultModal').style.display = "block"; // Show modal
+        }
+
+        // Function to close the modal
+        function closeModal() {
+            document.getElementById('resultModal').style.display = "none"; // Hide modal
+        }
+
+        // Close the modal when clicking outside of it
+        window.onclick = function(event) {
+            const modal = document.getElementById('resultModal');
+            if (event.target === modal) {
+                closeModal();
+            }
+        };
     </script>
 </body>
 </html>
