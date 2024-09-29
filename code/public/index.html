@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Disease Outbreak Map</title>
+    <link rel="stylesheet" href="styles.css" />
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+</head>
+<body>
+    <h1>Disease Outbreak Detection Map</h1>
+    <input type="text" id="locationInput" placeholder="Enter city or state">
+    <button onclick="loadMap()">Search</button>
+    <div id="map"></div>
+    <div id="index"></div>
+
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+    <script src="map.js"></script>
+</body>
+</html>
