@@ -13,7 +13,7 @@ app.use(bodyParser.json());
 app.use(express.static(path.join(__dirname, 'public'))); // Assuming your static files are in a 'public' folder
 
 // Initialize the Google Generative AI
-const genAI = new GoogleGenerativeAI("AIzaSyA7xaBBwjqx5KtLqEyYfFtCeuK5j3mezzs");
+const genAI = new GoogleGenerativeAI("...........");
 const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
 
 // Define a route for POST requests
