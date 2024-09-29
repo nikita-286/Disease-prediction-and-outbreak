@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Disease Prediction Results</title>
+    <link rel="stylesheet" href="input.css">
+</head>
+<body>
+    <h1>Disease Prediction Results</h1>
+    <div id="result">
+        <!-- Prediction results will be injected here -->
+    </div>
+
+    <h4>Outbreak Information:</h4>
+    <ul>
+        {% for country, info in outbreakInfo.items() %}
+            <li>{{ country }}: {{ info }}</li>
+        {% endfor %}
+    </ul>
+ 
+    <button onclick="window.location.href='/input'">Go Back</button>
+        <script src="result.js"></script>
+</body>
+</html>

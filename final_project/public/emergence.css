@@ -1,0 +1,106 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+header {
+    background-color: #007BFF;
+    color: white;
+    padding: 10px 20px;
+    text-align: center;
+}
+
+main {
+    display: flex;
+}
+
+#map {
+    height: 80vh;
+    width: 70%;
+}
+
+aside {
+    width: 30%;
+    padding: 20px;
+    background-color: #f8f9fa;
+    border-left: 1px solid #dee2e6;
+}
+
+ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.hospital-item {
+    margin-bottom: 10px;
+}
+
+.available {
+    color: green;
+    font-weight: bold;
+}
+
+.unavailable {
+    color: red;
+    font-weight: bold;
+}
+
+footer {
+    text-align: center;
+    padding: 10px 0;
+    background-color: #f8f9fa;
+    position: relative;
+    bottom: 0;
+    width: 100%;
+}
+
+
+.pharmacy-logo {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background-color: #28a745; /* Green color */
+    display: inline-block;
+    margin-right: 5px;
+}
+
+
+.pharmacy-item {
+    background-color: #f8f8f8;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    padding: 10px;
+}
+
+.pharmacy-item h3 {
+    margin: 0;
+}
+
+.pharmacy-item p {
+    margin: 5px 0;
+}
+
+.hospital-item {
+    background-color: #f0f0f0;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    padding: 10px;
+}
+
+.hospital-item.available {
+    color: green;
+}
+
+.hospital-item.unavailable {
+    color: red;
+}
+
+.custom-marker {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background-color: #ff0000; /* Default color */
+}

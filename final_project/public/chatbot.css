@@ -1,0 +1,86 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    display: flex;
+    justify-content: center; /* Center content horizontally */
+    align-items: flex-start; /* Align items to the top */
+    height: 100vh; /* Full viewport height */
+    padding: 0; /* No padding around the body */
+    background-color: #ffebe8; /* Background color */
+}
+
+.container {
+    max-width: 700px; /* Increased max width to 700px */
+    width: calc(100% - 2cm); /* Width with 1 cm space on each side */
+    height: calc(100vh - 4cm); /* Set height to 100% of the viewport height minus top and bottom margins */
+    margin: 2cm 0; /* Space of 2 cm (1 cm top and 1 cm bottom) */
+    padding: 20px;
+    background-color: #ff5029; /* Dark orange for the chat box */
+    border: 1px solid #ff522b; /* Use another lighter color for borders */
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    text-align: center; /* Center text inside the container */
+    overflow: auto; /* Add scrolling if content exceeds height */
+}
+
+/* Animation styles */
+.fade-in {
+    animation: fadeIn 1s ease-in-out; /* Animation effect */
+}
+
+/* Keyframes for fade-in effect */
+@keyframes fadeIn {
+    from {
+        opacity: 0; /* Start fully transparent */
+        transform: translateY(-20px); /* Move slightly up */
+    }
+    to {
+        opacity: 1; /* End fully opaque */
+        transform: translateY(0); /* Return to original position */
+    }
+}
+
+h1 {
+    margin-bottom: 10px;
+    color: #ffeae8f7; /* Light color for headings */
+}
+
+h2 {
+    margin-bottom: 10px;
+    color: #ff6543; /* Light color for headings */
+}
+
+textarea {
+    width: 100%;
+    height: 200px; /* Increased height for textarea */
+    margin-bottom: 10px;
+    padding: 10px;
+    border: 1px solid #ff5930; /* Use a vibrant color for textarea border */
+    border-radius: 4px;
+    resize: none;
+}
+
+button {
+    padding: 10px 15px;
+    background-color: #ffd0cd; /* Button color */
+    color: #ff5d3d; /* Darker color for button text */
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #ffb58a; /* Darker button color on hover */
+}
+
+.result-container {
+    margin-top: 15px;
+    padding: 10px;
+    border: 1px solid #ff481f; /* Lighter color for result container border */
+    border-radius: 4px;
+    background-color: #fff0e9; /* Light color for result container background */
+}

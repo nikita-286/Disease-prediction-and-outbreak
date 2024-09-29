@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Disease Prediction</title>
+    <link rel="stylesheet" href="input.css">
+    <script src="{{ url_for('static', filename='js/scripts.js') }}" defer></script>
+</head>
+
+
+<body>
+    <h1>Disease Prediction</h1>
+
+    <!-- Form for inputting factors -->
+    <form id="data-form" onsubmit="return false;">
+        <!-- Temperature Slider -->
+        <label for="temperature">Temperature:</label>
+        <input type="range" id="temperature" name="temperature" min="0" max="50" value="25" step="1" oninput="this.nextElementSibling.value = this.value">
+        <output>25</output><br>
+
+        <!-- Humidity Slider -->
+        <label for="humidity">Humidity:</label>
+        <input type="range" id="humidity" name="humidity" min="0" max="100" value="50" step="1" oninput="this.nextElementSibling.value = this.value">
+        <output>50</output><br>
+
+        <!-- Population Density Input -->
+        <label for="populationDensity">Population Density:</label>
+        <input type="number" id="populationDensity" name="populationDensity" required><br>
+
+        <!-- Travel History Text Area for NLP -->
+        <label for="travelHistoryText">Enter Travel History:</label>
+        <textarea id="travelHistoryText" name="travelHistoryText" rows="4" cols="50" placeholder="e.g., I traveled to Brazil and China recently."></textarea><br>
+        <button type="button" onclick="processTravelHistory()">Analyze Travel History</button><br>
+
+        <!-- Submit Button -->
+        <button type="submit" onclick="submitData()">Submit</button>
+    </form>
+
+    <!-- Result Display (modal) -->
+    <div id="resultModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal()">&times;</span>
+            <h3>Prediction Results:</h3>
+            <div id="modalResult"></div>
+        </div>
+    </div>
+
+    <!-- Smart Comments for Travel History -->
+    <div id="travel-result"></div>
+
+    <script src="input.js"></script>
+</body>
+</html>
