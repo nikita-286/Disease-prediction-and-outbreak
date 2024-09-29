@@ -13,7 +13,7 @@ CREATE TABLE outbreaks (
 
 
 
-INSERT INTO covid_data (id, country, cases, deaths, new_cases, disease) VALUES
+INSERT INTO outbreaks (id, country, cases, deaths, new_cases, disease) VALUES
 (562, 'Afghanistan', 36263, 1269, 106, 'COVID-19'),
 (563, 'Albania', 4880, 144, 117, 'COVID-19'),
 (564, 'Algeria', 27973, 1163, 616, 'COVID-19'),
