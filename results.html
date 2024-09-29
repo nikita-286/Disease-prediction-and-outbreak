@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Disease Prediction Results</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <h1>Disease Prediction Results</h1>
+    <div id="result">
+        <!-- Prediction results will be injected here -->
+    </div>
+
+    <h4>Outbreak Information:</h4>
+    <ul>
+        {% for country, info in outbreakInfo.items() %}
+            <li>{{ country }}: {{ info }}</li>
+        {% endfor %}
+    </ul>
+ 
+    <button onclick="window.location.href='/input'">Go Back</button>
+
+    <script>
+        document.getElementById('data-form').addEventListener('submit', function (e) {
+            e.preventDefault(); // Prevent default form submission
+        
+            const data = {
+                temperature: document.getElementById('temperature').value,
+                humidity: document.getElementById('humidity').value,
+                populationDensity: document.getElementById('populationDensity').value,
+                travel_history: document.getElementById('travelHistoryText').value,
+            };
+        
+            // Fetch prediction data
+            fetch('/predict', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data)
+            })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Failed to fetch prediction');
+                }
+                return response.json();
+            })
+            .then(result => {
+                // Prepare popup content
+                let popupContent = `
+                    <h2>Outbreak Likelihood: ${result.outbreak_likelihood} 
+                    | Predicted Diseases: ${result.predicted_diseases.join(', ') || 'None'}</h2>
+                    <p>Confidence Score: ${result.confidence_score}</p>
+                `;
+        
+                // Show the popup with the result
+                document.getElementById('result').innerHTML = popupContent;
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('Error submitting prediction data. Please try again.');
+            });
+        });
+        </script>
+        
+</body>
+</html>
