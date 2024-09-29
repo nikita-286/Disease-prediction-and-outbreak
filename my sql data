@@ -1,0 +1,115 @@
+database : emergency_db
+tables :
+show tables;
++------------------------+
+| Tables_in_emergency_db |
++------------------------+
+| emergency_reports      |
+| emergency_services     |
+| users                  |
++------------------------+
+
+
+
+mysql> show tables;
++------------------------+
+| Tables_in_emergency_db |
++------------------------+
+| emergency_reports      |
+| emergency_services     |
+| users                  |
++------------------------+
+3 rows in set (0.01 sec)
+
+mysql> desc emergency_reports;
++------------+-----------+------+-----+-------------------+-------------------+
+| Field      | Type      | Null | Key | Default           | Extra             |
++------------+-----------+------+-----+-------------------+-------------------+
+| id         | int       | NO   | PRI | NULL              | auto_increment    |
+| userId     | int       | NO   | MUL | NULL              |                   |
+| message    | text      | NO   |     | NULL              |                   |
+| created_at | timestamp | YES  |     | CURRENT_TIMESTAMP | DEFAULT_GENERATED |
++------------+-----------+------+-----+-------------------+-------------------+
+4 rows in set (0.00 sec)
+
+mysql> desc emergency_services;;
++------------+--------------+------+-----+-------------------+-------------------+
+| Field      | Type         | Null | Key | Default           | Extra             |
++------------+--------------+------+-----+-------------------+-------------------+
+| id         | int          | NO   | PRI | NULL              | auto_increment    |
+| name       | varchar(255) | NO   |     | NULL              |                   |
+| address    | varchar(255) | NO   |     | NULL              |                   |
+| contact    | varchar(50)  | NO   |     | NULL              |                   |
+| latitude   | decimal(9,6) | NO   |     | NULL              |                   |
+| longitude  | decimal(9,6) | NO   |     | NULL              |                   |
+| created_at | timestamp    | YES  |     | CURRENT_TIMESTAMP | DEFAULT_GENERATED |
++------------+--------------+------+-----+-------------------+-------------------+
+7 rows in set (0.00 sec)
+
+
+mysql> desc users;
++------------+--------------+------+-----+-------------------+-------------------+
+| Field      | Type         | Null | Key | Default           | Extra             |
++------------+--------------+------+-----+-------------------+-------------------+
+| id         | int          | NO   | PRI | NULL              | auto_increment    |
+| username   | varchar(50)  | NO   | UNI | NULL              |                   |
+| password   | varchar(255) | NO   |     | NULL              |                   |
+| email      | varchar(100) | NO   | UNI | NULL              |                   |
+| created_at | timestamp    | YES  |     | CURRENT_TIMESTAMP | DEFAULT_GENERATED |
++------------+--------------+------+-----+-------------------+-------------------+
+5 rows in set (0.01 sec)
+
+mysql> select * from users;
++----+--------------+-------------------+-------------------+---------------------+
+| id | username     | password          | email             | created_at          |
++----+--------------+-------------------+-------------------+---------------------+
+|  1 | rahul_verma  | hashed_password_1 | rahul@example.com | 2024-09-28 19:27:13 |
+|  2 | anita_sharma | hashed_password_2 | anita@example.com | 2024-09-28 19:27:13 |
++----+--------------+-------------------+-------------------+---------------------+
+2 rows in set (0.00 sec)
+
+mysql> select * from emergency_db;
+ERROR 1146 (42S02): Table 'emergency_db.emergency_db' doesn't exist
+mysql> select * from emergency_services;
++----+-------------------------------------+----------------------------------------------------------------------------------------------+---------------+-----------+-----------+---------------------+
+| id | name                                | address                                                                                      | contact       | latitude  | longitude | created_at          |
++----+-------------------------------------+----------------------------------------------------------------------------------------------+---------------+-----------+-----------+---------------------+
+|  1 | AIIMS Delhi                         | Ansari Nagar, New Delhi, Delhi 110029                                                        | 011-26588500  | 28.588000 | 77.218100 | 2024-09-28 19:25:27 |
+|  2 | Fortis Hospital                     | Sector 62, Noida, Uttar Pradesh 201301                                                       | 0120-4068000  | 28.585200 | 77.366800 | 2024-09-28 19:25:27 |
+|  3 | Apollo Hospital                     | 1/1, Greams Lane, Off Greams Road, Chennai, Tamil Nadu 600006                                | 044-2829-9999 | 13.066000 | 80.249700 | 2024-09-28 19:25:27 |
+|  4 | KEM Hospital                        | Acharya Donde Marg, Parel, Mumbai, Maharashtra 400012                                        | 022-2410-7000 | 19.999200 | 72.836000 | 2024-09-28 19:25:27 |
+|  5 | BGS Global Hospital                 | Kengeri Satellite Town, Bangalore, Karnataka 560060                                          | 080-2698-1111 | 12.934400 | 77.401000 | 2024-09-28 19:25:27 |
+|  6 | Max Super Specialty Hospital        | Saket, New Delhi, Delhi 110017                                                               | 011-26588500  | 28.521600 | 77.209000 | 2024-09-29 02:50:47 |
+|  7 | Medanta The Medicity                | Sector 38, Gurugram, Haryana 122001                                                          | 0124-4141414  | 28.465000 | 77.020500 | 2024-09-29 02:50:47 |
+|  8 | Narayana Health                     | Health City, Narayana Institute of Cardiac Sciences, Bangalore, Karnataka 560099             | 080-7127-2525 | 12.971600 | 77.641200 | 2024-09-29 02:50:47 |
+|  9 | Fortis Escorts Heart Institute      | Okhla Road, New Delhi, Delhi 110025                                                          | 011-2682-6868 | 28.568600 | 77.244700 | 2024-09-29 02:50:47 |
+| 10 | Manipal Hospitals                   | Bangalore, Karnataka 560027                                                                  | 080-2222-9999 | 12.971600 | 77.594600 | 2024-09-29 02:50:47 |
+| 11 | Lilavati Hospital                   | Bandra, Mumbai, Maharashtra 400050                                                           | 022-2640-3333 | 19.063200 | 72.832300 | 2024-09-29 02:50:47 |
+| 12 | Sanjivani Hospital                  | Dadar, Mumbai, Maharashtra 400014                                                            | 022-2415-2465 | 19.016300 | 72.846300 | 2024-09-29 02:50:47 |
+| 13 | Christian Medical College           | Vellore, Tamil Nadu 632004                                                                   | 0416-228-1000 | 12.923600 | 79.132300 | 2024-09-29 02:50:47 |
+| 14 | KIMS Hospital                       | Kochi, Kerala 682028                                                                         | 0484-403-7777 |  9.981400 | 76.292200 | 2024-09-29 02:50:47 |
+| 15 | Apollo Gleneagles Hospital          | Salt Lake City, Kolkata, West Bengal 700091                                                  | 033-4006-4006 | 22.582900 | 88.416600 | 2024-09-29 02:50:47 |
+| 16 | AIIMS Delhi                         | Ansari Nagar, New Delhi, Delhi 110029                                                        | 011-26588500  | 28.588000 | 77.218100 | 2024-09-29 19:33:17 |
+| 17 | Fortis Hospital                     | Sector 62, Noida, Uttar Pradesh 201301                                                       | 0120-4068000  | 28.585200 | 77.366800 | 2024-09-29 19:33:17 |
+| 18 | Apollo Hospital                     | Greams Lane, Off Greams Road, Chennai, Tamil Nadu 600006                                     | 044-28299999  | 13.066000 | 80.249700 | 2024-09-29 19:33:17 |
+| 19 | Max Healthcare                      | Saket, New Delhi, Delhi 110017                                                               | 011-45771000  | 28.552300 | 77.194300 | 2024-09-29 19:33:17 |
+| 20 | Manipal Hospitals                   | 98, HAL Old Airport Rd, Kodihalli, Bengaluru, Karnataka 560017                               | 080-22222222  | 12.979400 | 77.591000 | 2024-09-29 19:33:17 |
+| 21 | Fortis Escorts                      | Okhla Road, New Delhi, Delhi 110025                                                          | 011-23322266  | 28.597000 | 77.193200 | 2024-09-29 19:33:17 |
+| 22 | Medanta                             | Sector 38, Gurugram, Haryana 122001                                                          | 0124-4141414  | 28.471100 | 77.077500 | 2024-09-29 19:33:17 |
+| 23 | Sankara Nethralaya                  | College Road, Chennai, Tamil Nadu 600006                                                     | 044-42215000  | 13.052200 | 80.249000 | 2024-09-29 19:33:17 |
+| 24 | Kokilaben Dhirubhai Ambani Hospital | Rao Saheb Achutrao Patwardhan Marg, Four Bungalows, Andheri West, Mumbai, Maharashtra 400053 | 022-30999999  | 19.129600 | 72.833200 | 2024-09-29 19:33:17 |
+| 25 | Hiranandani Hospital                | Hill Side Avenue, Hiranandani Gardens, Powai, Mumbai, Maharashtra 400076                     | 022-25763300  | 19.117400 | 72.906600 | 2024-09-29 19:33:17 |
+| 26 | Lilavati Hospital                   | A-791, Bandra Reclamation, Bandra West, Mumbai, Maharashtra 400050                           | 022-26751000  | 19.055400 | 72.830500 | 2024-09-29 19:33:17 |
+| 27 | Saifee Hospital                     | 15/17, Maharshi Karve Marg, Charni Road, Mumbai, Maharashtra 400004                          | 022-67571000  | 18.953800 | 72.817700 | 2024-09-29 19:33:17 |
+| 28 | Holy Spirit Hospital                | Mahakali Caves Road, Andheri East, Mumbai, Maharashtra 400093                                | 022-28259641  | 19.120700 | 72.860000 | 2024-09-29 19:33:17 |
++----+-------------------------------------+----------------------------------------------------------------------------------------------+---------------+-----------+-----------+---------------------+
+28 rows in set (0.00 sec)
+
+mysql> select * from emergency_reports;
++----+--------+---------------------------------------+---------------------+
+| id | userId | message                               | created_at          |
++----+--------+---------------------------------------+---------------------+
+|  1 |      1 | Help! There is a fire in my building! | 2024-09-28 19:28:14 |
+|  2 |      2 | Accident on the highway near Thane.   | 2024-09-28 19:28:14 |
+|  3 |      1 | I need an ambulance for my father!    | 2024-09-28 19:28:14 |
++----+--------+---------------------------------------+---------------------+
